@@ -1,8 +1,8 @@
 import sqlite3
 
 
-class Asocia:
-    def __init__(self, id, img_id, description,):
+class AsociaQuestion:
+    def __init__(self, img_id, description, id=None):
         self.id = id
         self.img_id = img_id
         self.description = description
@@ -14,7 +14,7 @@ class Asocia:
                 }
 
 
-class InfoRepository:
+class AsociaRepository:
     def __init__(self, database_path):
         self.database_path = database_path
         self.init_tables()
@@ -27,7 +27,7 @@ class InfoRepository:
     def init_tables(self):
         sql = """
             create table if not exists asocia (
-                id varchar PRIMARY KEY,
+                id INTEGER PRIMARY KEY AutoIncrement,
                 img_id varchar,
                 description varchar
             )
@@ -37,22 +37,37 @@ class InfoRepository:
         cursor.execute(sql)
         conn.commit()
 
-    def get_all(self):
-        sql = """select * from asocia"""
+    def get_asocia_game(self):
+        sql = """SELECT * FROM asocia"""
         conn = self.create_conn()
         cursor = conn.cursor()
         cursor.execute(sql)
-
-        data = cursor.fetchall()
         
-        asocia = [Asocia(**item) for item in data]
+        data = cursor.fetchall()
+       
+        asocia = [AsociaQuestion(**item) for item in data]
+        
+        return asocia
+    
+    def get_asocia_img(self):
+        sql = """SELECT img_id FROM asocia"""
+        conn = self.create_conn()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        
+        data = cursor.fetchall()
+       
+        asocia = [item for item in data]
+        
         return asocia
 
     def save(self, asocia):
-        sql = """insert into asocia (id, img_id, description) values (
-            :id, :img_id, :description
+        sql = """INSERT INTO asocia ( img_id, description) VALUES (
+             :img_id, :description
         ) """
         conn = self.create_conn()
         cursor = conn.cursor()
         cursor.execute(sql, asocia.to_dict())
         conn.commit()
+        
+        return
