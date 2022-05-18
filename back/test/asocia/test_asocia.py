@@ -38,6 +38,6 @@ def test_should_return_list_of_asocia_questions():
     response = client.get("/api/asocia")
 
     assert response.json == [
-        {"id":1, "img_id":"apple.jpg","description":"Red"},
-        {"id":2, "img_id":"treeLeaf.jpg","description":"Green"}
+        {"id":1, "img_id":"apple.jpg","description":"Red", "show":"true"},
+        {"id":2, "img_id":"treeLeaf.jpg","description":"Green", "show":"true"}
         ]
