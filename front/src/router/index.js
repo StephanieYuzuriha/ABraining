@@ -11,6 +11,11 @@ const routes = [
     name: 'Match',
     component: () => import('@/pages/match/MatchPage.vue'),
   },
+  {
+    path: '/results',
+    name: 'Results',
+    component: () => import('@/pages/results/ResultsPage.vue'),
+  },
 ]
 
 const router = createRouter({
