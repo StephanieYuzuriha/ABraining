@@ -1,6 +1,8 @@
-from unittest import result
 from flask import Flask, request
 from flask_cors import CORS
+from src.lib.utils import object_to_json
+import json
+from src.domain.asocia import AsociaRepository, AsociaQuestion
 
 from src.lib.utils import object_to_json
 
@@ -25,10 +27,10 @@ def create_app(repositories):
     #     return object_to_json(info)
 
     @app.route("/api/asocia", methods=["GET"])
-    def get_results():
-        asocia = repositories["asocia"].get_asocia_game()
-        return object_to_json(asocia)
-    
+    def get_asocia_game():
+        game = repositories["asocia"].get_asocia_game()
+        return object_to_json(game)
+
     # @app.route("/api/results", methods=["GET"])
     # def get_results():
     #     results = repositories["user"].get_user_results()
