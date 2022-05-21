@@ -17,7 +17,7 @@ def test_should_return_empty_list_of_asocia_questions():
     assert response.json == []
 
     
-def test_should_return_list_of_asocia_questions():
+def test_should_save_and_return_list_of_asocia_questions():
 
     asocia_repository = AsociaRepository(temp_file())
     app = create_app(repositories={"asocia": asocia_repository})
