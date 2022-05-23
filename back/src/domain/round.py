@@ -16,7 +16,7 @@ class Round:
                 }
 
 
-class InfoRepository:
+class RoundRepository:
     def __init__(self, database_path):
         self.database_path = database_path
         self.init_tables()
