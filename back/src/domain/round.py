@@ -1,22 +1,24 @@
 import sqlite3
 
-
 class Round:
-    def __init__(self, id, id_game, id_user, successes,):
-        self.id = id
-        self.id_game = id_game
+    def __init__(self, game_name, wrong_matches, date, game_numer = None, id_user = ""):
+        self.game_numer = game_numer
         self.id_user = id_user
-        self.successes = successes
+        self.game_name = game_name
+        self.wrong_matches = wrong_matches
+        self.date = date
+        
 
     def to_dict(self):
-        return {"id": self.id,
-                "id_game": self.id_game,
+        return {"game_numer": self.game_numer,
+                "game_name": self.game_name,
                 "id_user": self.id_user,
-                "successes": self.successes
+                "wrong_matches": self.wrong_matches,
+                "date" : self.date
                 }
 
 
-class RoundRepository:
+class RoundsRepository:
     def __init__(self, database_path):
         self.database_path = database_path
         self.init_tables()
@@ -28,12 +30,13 @@ class RoundRepository:
 
     def init_tables(self):
         sql = """
-            create table if not exists rounds (
-                id varchar PRIMARY KEY,
-                id_game varchar,
+            CREATE TABLE if not exists rounds (
+                game_numer varchar,
+                game_name varchar,
                 id_user varchar,
-                successes varchar,
-                FOREIGN KEY (id_game) REFERENCES asocia(id)
+                wrong_matches varchar,
+                date date,
+               
                 FOREIGN KEY (id_user) REFERENCES user(id)
             )
         """
@@ -43,7 +46,7 @@ class RoundRepository:
         conn.commit()
 
     def get_all(self):
-        sql = """select * from round"""
+        sql = """SELECT * FROM rounds"""
         conn = self.create_conn()
         cursor = conn.cursor()
         cursor.execute(sql)
@@ -53,11 +56,17 @@ class RoundRepository:
         round = [Round(**item) for item in data]
         return round
 
-    def save(self, asocia):
-        sql = """insert into round (id, id_game, id_user, successes) values (
-            :id, :id_game, :id_user, :successes
+    def save(self, round):
+        sql = """INSERT INTO rounds (game_numer, game_name, id_user, wrong_matches, date ) values (
+            :game_numer, :game_name, :id_user, :wrong_matches, :date
         ) """
         conn = self.create_conn()
         cursor = conn.cursor()
-        cursor.execute(sql, asocia.to_dict())
+        cursor.execute(sql, round.to_dict())
         conn.commit()
+    
+    # def get_game_numer(self):
+    #     sql ="""SELECT game_numer FROM rounds"""
+    #     conn = self.create_conn()
+    #     cursor = conn.cursor()
+    #     cursor.execute(sql)
