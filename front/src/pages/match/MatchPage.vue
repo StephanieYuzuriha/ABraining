@@ -15,7 +15,7 @@
       </transition>
     </section>
     
-    <button v-if="totQuestionsAnswered == this.randomQuestions.length" @click="Results()">See my results</button>
+    <button v-if="totQuestionsAnswered == this.randomQuestions.length" @click="resultsButton()">See my results</button>
     <button v-else @click.prevent="checkMatch">Check Match</button>
 
   </div>
@@ -30,7 +30,7 @@ import config from "../../config.js"
 // }) 
 
 export default {
-
+  
   name: "Match",
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
       wrongMatchs:"",
       correct:false,
       showResultsButton: false,
-      totQuestionsAnswered: 0
+      totQuestionsAnswered: 0,
     }
   },
 
@@ -103,7 +103,19 @@ export default {
       
     },
     
-    Results(){
+    resultsButton(){
+      console.log("RESULT BUTTON")
+      let results = {"game_name": "Match Game", "id_user": "1" ,"wrong_matches": this.wrongMatchs}
+      console.log("results>: " , results.game_name)
+      
+      
+      const settings = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(results),
+      };
+
+      fetch(`${config.API_PATH}/results`, settings);
       this.$router.push("/results/ResultsPage.vue");
     }
     
