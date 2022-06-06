@@ -3,9 +3,9 @@ import sqlite3
 class Round:
     def __init__(self, game_name, wrong_matches, date, game_numer = None, id_user = ""):
         self.game_numer = game_numer
-        self.id_user = id_user
         self.game_name = game_name
         self.wrong_matches = wrong_matches
+        self.id_user = id_user
         self.date = date
         
 
@@ -57,6 +57,7 @@ class RoundsRepository:
         return round
 
     def save(self, round):
+        
         sql = """INSERT INTO rounds (game_numer, game_name, id_user, wrong_matches, date ) values (
             :game_numer, :game_name, :id_user, :wrong_matches, :date
         ) """
@@ -65,8 +66,12 @@ class RoundsRepository:
         cursor.execute(sql, round.to_dict())
         conn.commit()
     
-    # def get_game_numer(self):
-    #     sql ="""SELECT game_numer FROM rounds"""
+    # def get_game_numer(self, id_user):
+    #     sql ="""SELECT MAX(game_numer) FROM rounds WHERE id_user =:id_user"""
     #     conn = self.create_conn()
     #     cursor = conn.cursor()
     #     cursor.execute(sql)
+    #     data = cursor.fetchall()
+        
+    #     return data
+        
