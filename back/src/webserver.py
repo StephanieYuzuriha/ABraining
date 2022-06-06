@@ -28,18 +28,19 @@ def create_app(repositories):
     def post_results():
         body = request.json
         round = Round(
+            game_numer = 1,
             game_name = body["game_name"],
             id_user = body["id_user"],
             wrong_matches= body["wrong_matches"],
             date = datetime.today()
             )
-        repositories["round"].save(round)
-        print(round)
-        return ""
+        repositories["rounds"].save(round)
+        return "", 200
     
     @app.route("/api/results", methods=["GET"])
     def get_results():
-        results = repositories["results"].get_results()
+        results = repositories["rounds"].get_all()
+        print("******",results[0].date)
         return object_to_json(results)
      
     # @app.route("/api/img_list", methods=["GET"])
