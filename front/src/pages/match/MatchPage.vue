@@ -116,7 +116,7 @@ export default {
       };
 
       fetch(`${config.API_PATH}/results`, settings);
-      this.$router.push("/results/ResultsPage.vue");
+      this.$router.push("/results");
     }
     
 
