@@ -57,7 +57,9 @@ class RoundsRepository:
         return round
 
     def save(self, round):
-        
+        if round.wrong_matches == "":
+            round.wrong_matches = "0"
+            
         sql = """INSERT INTO rounds (game_numer, game_name, id_user, wrong_matches, date ) values (
             :game_numer, :game_name, :id_user, :wrong_matches, :date
         ) """
