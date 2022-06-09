@@ -32,7 +32,7 @@ def create_app(repositories):
             game_name = body["game_name"],
             id_user = body["id_user"],
             wrong_matches= body["wrong_matches"],
-            date = datetime.today()
+            date = date.today()
             )
         repositories["rounds"].save(round)
         return "", 200
