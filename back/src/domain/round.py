@@ -1,8 +1,7 @@
 import sqlite3
 
 class Round:
-    def __init__(self, game_name, wrong_matches, date, game_numer = None, id_user = ""):
-        self.game_numer = game_numer
+    def __init__(self, game_name, wrong_matches, date, id_user = ""):
         self.game_name = game_name
         self.wrong_matches = wrong_matches
         self.id_user = id_user
@@ -10,7 +9,7 @@ class Round:
         
 
     def to_dict(self):
-        return {"game_numer": self.game_numer,
+        return {
                 "game_name": self.game_name,
                 "id_user": self.id_user,
                 "wrong_matches": self.wrong_matches,
@@ -31,7 +30,6 @@ class RoundsRepository:
     def init_tables(self):
         sql = """
             CREATE TABLE if not exists rounds (
-                game_numer varchar,
                 game_name varchar,
                 id_user varchar,
                 wrong_matches varchar,
@@ -44,24 +42,24 @@ class RoundsRepository:
         cursor = conn.cursor()
         cursor.execute(sql)
         conn.commit()
-
-    def get_all(self):
-        sql = """SELECT * FROM rounds"""
+    
+    def get_all_rounds_by_user(self, id_user):
+        sql = """SELECT * FROM rounds WHERE id_user =:id_user"""
         conn = self.create_conn()
         cursor = conn.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, {"id_user" : id_user})
 
         data = cursor.fetchall()
         
         round = [Round(**item) for item in data]
         return round
-
+    
     def save(self, round):
         if round.wrong_matches == "":
             round.wrong_matches = "0"
             
-        sql = """INSERT INTO rounds (game_numer, game_name, id_user, wrong_matches, date ) values (
-            :game_numer, :game_name, :id_user, :wrong_matches, :date
+        sql = """INSERT INTO rounds (game_name, id_user, wrong_matches, date ) values (
+            :game_name, :id_user, :wrong_matches, :date
         ) """
         conn = self.create_conn()
         cursor = conn.cursor()

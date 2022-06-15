@@ -37,22 +37,26 @@ def create_app(repositories):
     
     @app.route("/api/results", methods=["POST"])
     def post_results():
+        user_id = request.headers.get("Authorization")
         body = request.json
-        round = Round(
-            game_numer = 1,
-            game_name = body["game_name"],
-            id_user = body["id_user"],
-            wrong_matches= body["wrong_matches"],
-            date = date.today()
-            )
-        repositories["rounds"].save(round)
-        return "", 200
+        print(user_id, body["id_user"] )
+        if user_id == body["id_user"]:
+            round = Round(
+                game_name = body["game_name"],
+                id_user = body["id_user"],
+                wrong_matches= body["wrong_matches"],
+                date = date.today()
+                )
+            repositories["rounds"].save(round)
+            return "", 200
+        return "", 401
     
     @app.route("/api/results", methods=["GET"])
     def get_results():
-        results = repositories["rounds"].get_all()
-        print("******",results[0].date)
+        user_id = request.headers.get("Authorization")
+        results = repositories["rounds"].get_all_rounds_by_user(user_id)
         return object_to_json(results)
+    
     
     @app.route("/api/user", methods=["POST"])
     def post_user():

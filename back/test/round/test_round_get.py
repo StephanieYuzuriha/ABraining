@@ -10,20 +10,38 @@ def test_get_rounds_should_return_all_rounds():
     app = create_app(repositories={"rounds": round_repository})
     client = app.test_client()
     
-    round = Round (game_numer = "1",
+    round = Round (
             game_name = "Match",
             id_user = "01",
             wrong_matches = "4",
             date = date(2020, 12, 25))
     
-    round_repository.save(round)
+    round2 = Round (
+            game_name = "Match",
+            id_user = "01",
+            wrong_matches = "3",
+            date = date(2020, 12, 25))
     
-    resp = client.get("/api/results")
+    round3 = Round (
+            game_name = "Match",
+            id_user = "02",
+            wrong_matches = "1",
+            date = date(2020, 12, 25))
+    
+    round_repository.save(round)
+    round_repository.save(round2)
+    
+    resp = client.get("/api/results", headers={"Authorization": "01"})
     assert resp.status_code == 200
-    assert resp.json == [{"game_numer" : "1",
+    assert resp.json == [{
             "game_name" : "Match",
             "id_user" : "01",
             "wrong_matches" : "4",
+            "date" : "2020-12-25"},
+            {
+            "game_name" : "Match",
+            "id_user" : "01",
+            "wrong_matches" : "3",
             "date" : "2020-12-25"}]
 
 
@@ -33,7 +51,7 @@ def test_save_round_without_mistakes_mistakes_should_be_0():
     app = create_app(repositories={"rounds": round_repository})
     client = app.test_client()
     
-    round = Round (game_numer = "1",
+    round = Round (
             game_name = "Match",
             id_user = "01",
             wrong_matches = "",
@@ -41,9 +59,9 @@ def test_save_round_without_mistakes_mistakes_should_be_0():
     
     round_repository.save(round)
     
-    resp = client.get("/api/results")
+    resp = client.get("/api/results", headers={"Authorization": "01"})
     assert resp.status_code == 200
-    assert resp.json == [{"game_numer" : "1",
+    assert resp.json == [{
             "game_name" : "Match",
             "id_user" : "01",
             "wrong_matches" : "0",
