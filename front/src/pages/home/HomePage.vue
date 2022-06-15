@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="@/assets/img/logo.png" />
-    <h1>{{ info.app_name }}</h1>
+    <h1>Braining</h1>
   </div>
 </template>
 
@@ -29,7 +29,16 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-style: italic;
+img {
+  height: 15rem;
+  padding-top: 6rem;
+}
+
+.home{
+  height: 100vh;
+  font-family: 'Skranji', cursive;
+}
+h1{
+  font-size: 7rem;
 }
 </style>
