@@ -66,3 +66,20 @@ def test_save_round_without_mistakes_mistakes_should_be_0():
             "id_user" : "01",
             "wrong_matches" : "0",
             "date" : "2020-12-25"}]  
+    
+def test_get_rounds_without_user():
+        
+    round_repository = RoundsRepository(temp_file())
+    app = create_app(repositories={"rounds": round_repository})
+    client = app.test_client()
+    
+    round = Round (
+            game_name = "Match",
+            id_user = "01",
+            wrong_matches = "",
+            date = date(2020, 12, 25))
+    
+    round_repository.save(round)
+    
+    resp = client.get("/api/results", headers={"Authorization": ""})
+    assert resp.status_code == 401
