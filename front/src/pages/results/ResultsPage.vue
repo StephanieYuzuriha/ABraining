@@ -1,42 +1,28 @@
 <template>
   <div class="results">
     <h1>Results</h1>
-    <section v-if="!userIsNotLogged">
-      <table >
-        <tr>
-          <th>Game number</th>
-          <th>Mistakes</th>
-          <th>Date</th>
-        </tr>
-        <tr v-for="round of this.results" :key="round">
-          <td>{{round.game_name}}</td>
-          <td>{{round.wrong_matches}}</td>
-          <td>{{round.date}}</td>
-        </tr>
-      </table>
-    </section>
-    <section v-else>
-      You have to
-      <a href="/signUp" class="signUp">
-        Sign Up
-      </a>
-      <p>or</p>
-      <a href="/lonIn" class="logIn">
-        Log In
-      </a>
-      to see your results.
-    </section>
+    <table>
+      <tr>
+        <th>Game number</th>
+        <th>Mistakes</th>
+        <th>Date</th>
+      </tr>
+      <tr v-for="round of this.results" :key="round">
+        <td>{{round.game_numer}}</td>
+        <td>{{round.wrong_matches}}</td>
+        <td>{{round.date}}</td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
-import { getResults } from "@/services/api.js"
+import config from "../../config.js"
 export default {
   name: 'Results',
   data() {
     return {
-      results: {},
-      userIsNotLogged: false,
+      results: {}
     }
   },
 
@@ -47,10 +33,9 @@ export default {
 
   methods: {
     async loadData(){
-      this.results = await getResults()
-      if (this.results === false) {
-        this.userIsNotLogged = true
-      }
+      const response = await fetch(`${config.API_PATH}/results`);
+      this.results = await response.json();
+      console.log(this.results)
     }
   }
 
