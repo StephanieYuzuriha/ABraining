@@ -15,7 +15,7 @@ import { useStorage } from "@vueuse/core";
 export default {
   data() {
     return {
-      localUser: useStorage("user", {}),
+      localUser: useStorage("auth", {}),
     };
   },
   computed: {
