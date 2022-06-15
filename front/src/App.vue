@@ -5,6 +5,7 @@
     <router-link to="/results">Results</router-link> | 
     <router-link to="/signUp">Sign Up</router-link>  | 
     <router-link to="/logIn">Log In</router-link>
+    <button @click="onClickedLogOut">Log Out</button>
   </div>
   <router-view />
 </template>
@@ -23,5 +24,14 @@ export default {
       return this.localUser.name;
     },
   },
+  methods: {
+    onClickedLogOut(){
+      this.localUser = {}
+      
+      console.log(this.localUser)
+      this.$router.push("/logIn")
+
+    }
+  }
 };
 </script>
