@@ -1,20 +1,21 @@
 <template>
   <div id="container">
-    <h1>Match Game</h1>
-    <h2>Instructions</h2>
-    <article>Connect the image with the correct color</article>
+    <h1 id="title">Match Game</h1>
+    <h4>Connect the image with the correct color</h4>
     <section v-for="item of this.randomQuestions" :key="item">
       <transition name="fade">
         <img :id="item.id" v-show="item.show"  :class="{selected: item.id === id_img, correct: !item.show }" @click="onClickImg(item.id)" :src="item.img_id" alt="img">
       </transition>
       {{item.id_img}}
       <transition name="fade">
-      <p :id="item.id" v-show="item.show"  :class="{selected: item.id === id_desc, correct: !item.show }" @click="onClickDesc(item.id)">{{item.description}}</p>
+        <div class="description-container" :id="item.id" v-show="item.show"  :class="{selected: item.id === id_desc, correct: !item.show }" @click="onClickDesc(item.id)">
+          <p>{{item.description}}</p>
+        </div>
       </transition>
     </section>
     
     <button v-if="totQuestionsAnswered == this.randomQuestions.length" @click="resultsButton()">See my results</button>
-    <button v-else @click.prevent="checkMatch">Check Match</button>
+    <button class="check-button" v-else @click.prevent="checkMatch">Check Match</button>
     <p v-if="wrong">Wrong Match!</p>
 
   </div>
@@ -100,7 +101,7 @@ export default {
     },
     
     async resultsButton(){
-      let results = {"game_name": "Match Game", "id_user": ""  ,"wrong_matches": this.wrongMatchs}
+      let results = {"game_name": "Match Game", "id_user": "1" ,"wrong_matches": this.wrongMatchs}
       await addResults(results)
       
       this.$router.push("/results");
@@ -114,45 +115,92 @@ export default {
 
 <style>
   #container {
-    
-    height: 100vh;
+    height: 100%;
+    margin-top: 5rem;
   }
-  img{
-    width: 7rem;
-    height: 7rem;
+
+  .check-button {
+    padding: 1rem 2rem;
+    margin: 5rem 0;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--secund);
   }
-  section{
-    display: flex;
-    justify-content: space-around;
-    
-  }
-  p{
+
+  .description-container {
+    width: 12rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    border: 4px solid rgb(121, 0, 235);
   }
-  
+
+  #title {
+    font-family: 'Skranji', cursive;
+    font-size: 70px;
+    padding-top: 6rem;
+  }
+
+  img {
+    width: 12rem;
+    height: 12rem;
+    border: 4px solid rgb(121, 0, 235);
+  }
+
+  section {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 15rem 10px 15rem;
+  }
+
   .selected {
-    border: 2px yellow solid;
+    border: 4px yellow solid;
   }
-  .unselected{
+  .unselected {
     border: none;
   }
-  .correct{
-    border: green 2px solid;
+  .correct {
+    border: green 4px solid;
   }
 
-  
-  .uncorrect{
-    border: red 2px solid;
+  .uncorrect {
+    border: red 4px solid;
   }
 
-  
   .fade-leave-active {
     opacity: 0;
     transition:  2s ease;   
   }
 
   
+  @media screen and (max-width: 480px) {
+    img {
+      width: 8rem;
+      height: 8rem;
+      border: 2px solid rgb(121, 0, 235);
+    }
+
+    .description-container {
+    width: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(121, 0, 235);
+    }
+
+    section {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 2rem 10px 2rem;
+    }
+
+    #title {
+    font-family: 'Skranji', cursive;
+    font-size: 40px;
+    padding-top: 5rem;
+  }
+}
+
 
   
 </style>

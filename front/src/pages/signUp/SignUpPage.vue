@@ -1,12 +1,13 @@
 <template>
   <div class="signUp">
-      <form class="form" @submit.prevent="register">
-        <h1>Sign-Up</h1>
+    <h1>Sign-Up</h1>
+    <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
 
+      <form class="form" @submit.prevent="register">
         <div class="data">
           <p class="user">Username</p>
           <input autocomplete="new-user" class="user-input" v-model="user" type="text" name="username" placeholder="Type your username">
-          <span v-if="isUsernameAlreadyTaken">This username is already taken</span>
+          <p class="warning" v-if="isUsernameAlreadyTaken">This username is already taken</p>
         </div>
 
         <div class="data">
@@ -27,32 +28,12 @@
         <div class="data">
           <p class="password">Please repeat the password</p>
           <input autocomplete="new-password" class="password-input" v-model="rPassword" type="password"  placeholder="Type your password">
-          <span v-if="isPasswordNotTheSame">Please verify! Passwords are not the same</span>
+          <p class="warning" v-if="isPasswordNotTheSame">Please verify! Passwords are not the same</p>
         </div>
              
-        <button @click="onSignUpButtonClicked" class="login">
+        <button @click="onSignUpButtonClicked" class="sing-up">
           Sign-In
         </button>
-
-        <!-- <div class="signUpMedia">
-          <span>
-            Or Sign Up Using
-          </span>
-        </div>
-
-        <div class="socialMedia">
-          <a href="#" class="login100-social-item bg1">
-            <i class="fa fa-facebook"></i>
-          </a>
-
-          <a href="#" class="login100-social-item bg2">
-            <i class="fa fa-twitter"></i>
-          </a>
-
-          <a href="#" class="login100-social-item bg3">
-            <i class="fa fa-google"></i>
-          </a>
-        </div> -->
       </form>          
   </div>
 </template>
@@ -123,84 +104,59 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css?family=Poppins');
-
-/* BASIC */
-
-html {
-  background-color: #56baed;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  height: 100vh;
-}
-
-a {
-  color: #92badd;
-  display:inline-block;
-  text-decoration: none;
-  font-weight: 400;
-}
-
-h2 {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
-  color: #cccccc;
-}
-
-
-
-/* STRUCTURE */
-
-.wrapper {
+.signUp{
   display: flex;
-  align-items: center;
-  flex-direction: column; 
   justify-content: center;
-  width: 100%;
-  min-height: 100%;
-  padding: 20px;
+  align-items: center;
+  flex-direction: column;
+  background-color: blueviolet;
+  border-radius: .8rem;
+  margin: 5rem 15rem;
 }
 
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
-  width: 90%;
-  max-width: 450px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  text-align: center;
+.logo{
+  width: 4rem;
 }
 
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
+.warning{
+  border: 2px solid yellow;
+  border-radius: .5rem;
+  padding: 1rem;
+}
+
+input{
+  border: none;
+  height: 1.4rem;
+  font-size: 14px;
+  outline-color: blue;
+  border-radius: .3rem;
+}
+
+input :focus{
+  outline-color: blue;
+}
+
+span{
+  margin: 0.5rem;
+}
+
+p{
+  font-weight: bold;
+  margin: 1rem 2rem;
+}
+
+.sing-up{
+  margin: 1rem;
+  border-radius: .5rem;
+  font-size: 15px;
+  background-color: violet;
+
+}
+
+.sing-up:hover{
+  background-color: plum;
 }
 
 
-
-/* TABS */
-
-h2.inactive {
-  color: #cccccc;
-}
-
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
-}
 
 </style>

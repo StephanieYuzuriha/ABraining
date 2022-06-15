@@ -2,15 +2,17 @@
   <div class="login">
       <form class="login-form" @submit.prevent="onLogInButtonClicked" >
         <h1>Log-In</h1>
-
+        <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
         <div class="data" >
-          <span class="user">Username</span>
-          <input v-model="user"  autocomplete="current-user" class="user-input" type="text" name="username" placeholder="Type your username">
+          <p class="user">Username</p>
+          <span><i class="fa fa-user"></i></span>
+          <input v-model="user"  autocomplete="current-user" class="user-input" type="text" name="username" placeholder="Type your username" required>
         </div>
 
         <div class="data">
-          <span class="password">Password</span>
-          <input v-model="password" autocomplete="current-password" class="password-input" type="password" name="pass" placeholder="Type your password">
+          <p class="password">Password</p>
+          <span><i class="fa fa-lock"></i></span>
+          <input v-model="password" autocomplete="current-password" class="password-input" type="password" name="pass" placeholder="Type your password" required>
         </div>
         
         <!-- <div class="forgotPassword">
@@ -19,7 +21,7 @@
           </a>
         </div> -->
              
-        <button type="submit" class="login">
+        <button type="submit" class="login-button">
           Login
         </button>
 
@@ -71,4 +73,55 @@ export default {
 </script>
 
 <style>
+.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+}
+.login-form{
+  height: 20rem;
+  background-color: blueviolet;
+  border-radius: 2rem;
+  padding: 3rem;
+}
+
+.logo{
+  width: 4rem;
+}
+
+.login-button{
+  margin: 1rem;
+  border-radius: .5rem;
+  font-size: 15px;
+  background-color: violet;
+}
+.login-button:hover{
+  background-color: plum;
+}
+
+input{
+  border: none;
+  height: 1.4rem;
+  font-size: 14px;
+  outline-color: blue;
+  border-radius: .3rem;
+}
+input :focus{
+  outline-color: blue;
+}
+
+h1{
+  margin-top: 0;
+}
+
+span{
+  margin: 0.5rem;
+}
+
+p{
+  font-weight: bold;
+}
+
 </style>
