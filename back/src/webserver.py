@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from jinja2 import Undefined
 from src.lib.utils import object_to_json
 from datetime import date
 from src.domain.round import Round
@@ -54,7 +55,7 @@ def create_app(repositories):
     def get_results():
         user_id = request.headers.get("Authorization")
         print(user_id)
-        if user_id == "" or user_id == None:
+        if user_id == "" or user_id == None or user_id == "undefined":
             return "", 401
         results = repositories["rounds"].get_all_rounds_by_user(user_id)
         return object_to_json(results)
