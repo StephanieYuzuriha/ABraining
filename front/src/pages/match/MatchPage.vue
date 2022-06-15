@@ -3,8 +3,6 @@
     <h1>Match Game</h1>
     <h2>Instructions</h2>
     <article>Connect the image with the correct color</article>
-    <!-- <p>tittle</p> -->
-    <!-- {{id_img}} -->
     <section v-for="item of this.randomQuestions" :key="item">
       <transition name="fade">
         <img :id="item.id" v-show="item.show"  :class="{selected: item.id === id_img, correct: !item.show }" @click="onClickImg(item.id)" :src="item.img_id" alt="img">
@@ -17,24 +15,21 @@
     
     <button v-if="totQuestionsAnswered == this.randomQuestions.length" @click="resultsButton()">See my results</button>
     <button v-else @click.prevent="checkMatch">Check Match</button>
+    <p v-if="wrong">Wrong Match!</p>
 
   </div>
 </template>
 
 <script>
 import config from "../../config.js"
-// import {autoAnimate} from "@formkit/auto-animate"
-// import { onMounted } from "vue"
-// onMounted(() => {
-//   autoAnimate(.value) // thats it!
-// }) 
+import { addResults } from "@/services/api.js";
 
 export default {
   
   name: "Match",
   data() {
     return {
-      tittle: "Prueba",
+      wrong: false,
       questions:[],
       randomQuestions:[],
       id_img: "",
@@ -94,28 +89,20 @@ export default {
           this.id_img = ""
           this.id_desc = ""
           this.totQuestionsAnswered++
-          
+          this.wrong = false
         }
         else{
+          this.wrong = true
           this.wrongMatchs ++
         }
       }
       
     },
     
-    resultsButton(){
-      console.log("RESULT BUTTON")
-      let results = {"game_name": "Match Game", "id_user": "1" ,"wrong_matches": this.wrongMatchs}
-      console.log("results>: " , results.game_name)
+    async resultsButton(){
+      let results = {"game_name": "Match Game", "id_user": ""  ,"wrong_matches": this.wrongMatchs}
+      await addResults(results)
       
-      
-      const settings = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(results),
-      };
-
-      fetch(`${config.API_PATH}/results`, settings);
       this.$router.push("/results");
     }
     
