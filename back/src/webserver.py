@@ -14,8 +14,10 @@ def create_app(repositories):
     @app.route("/auth/login", methods=["POST"])
     def login():
         body = request.json
+        print(body)
         user = repositories["users"].get_by_id(body["user"])
-        if user is None or (body["password"]) != user.password or body["user"] == "":
+        print(user.name)
+        if (user is None) or ((body["password"]) != user.password) or (body["user"] == ""):
             return "", 401
         
         return user.to_dict(), 200
