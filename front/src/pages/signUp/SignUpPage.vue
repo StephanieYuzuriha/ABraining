@@ -1,40 +1,34 @@
 <template>
   <div class="signUp">
-    <h1>Sign-Up</h1>
-    <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
-
-      <form class="form" @submit.prevent="register">
+      <form class="form" @submit.prevent="onSignUpButtonClicked">
+        <h1>Sign-Up</h1>
+        <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
         <div class="data">
           <p class="user">Username</p>
-          <input autocomplete="new-user" class="user-input" v-model="user" type="text" name="username" placeholder="Type your username">
+          <input required autocomplete="new-user" class="user-input" v-model="user" type="text" name="username" placeholder="Type your username">
           <p class="warning" v-if="isUsernameAlreadyTaken">This username is already taken</p>
         </div>
 
         <div class="data">
           <p class="name">Name</p>
-          <input autocomplete="new-name" class="name-input" v-model="name" type="text" name="name" placeholder="Type your name">
+          <input required autocomplete="new-name" class="name-input" v-model="name" type="text" name="name" placeholder="Type your name">
         </div>
-
-        <!-- <div class="data" data-validate = "Username is reauired">
-          <p class="email">Email</p>
-          <input class="user-input" type="text" name="username" placeholder="Type your username">
-        </div> -->
 
         <div class="data">
           <p class="password">Password</p>
-          <input autocomplete="new-password" class="password-input" v-model="password" type="password"  placeholder="Type your password">
+          <input required autocomplete="new-password" class="password-input" v-model="password" type="password"  placeholder="Type your password">
         </div>
 
         <div class="data">
           <p class="password">Please repeat the password</p>
-          <input autocomplete="new-password" class="password-input" v-model="rPassword" type="password"  placeholder="Type your password">
+          <input required autocomplete="new-password" class="password-input" v-model="rPassword" type="password"  placeholder="Type your password">
           <p class="warning" v-if="isPasswordNotTheSame">Please verify! Passwords are not the same</p>
         </div>
              
-        <button @click="onSignUpButtonClicked" class="sing-up">
+        <button type="submit" class="sing-up">
           Sign-In
         </button>
-      </form>          
+      </form>        
   </div>
 </template>
 
@@ -44,6 +38,7 @@ import { signUp } from "@/services/auth.js";
 
 export default {
   name: 'SignUp',
+
   data() {
     return {
       user: "",
@@ -52,6 +47,7 @@ export default {
       rPassword: "",
       isUsernameAlreadyTaken: false,
       auth: useStorage("auth", {}),
+      isRegister: false,
 
     }
   },
@@ -79,8 +75,6 @@ export default {
     
     async onSignUpButtonClicked() {
       console.log("entro")
-      //   localStorage.userId = this.selectedUser.id;
-      //   localStorage.userName = this.selectedUser.name;
       if (this.isPasswordNotTheSame === false){
         const response = await signUp(this.user, this.name, this.password);
         const loginStatus = response.status;
@@ -91,8 +85,7 @@ export default {
           this.isUsernameAlreadyTaken = true
         } 
         else{
-          
-          this.$router.push("/logIn");
+          this.$router.push("/logIn", );
         }
       }
       
@@ -105,13 +98,20 @@ export default {
 
 <style scoped>
 .signUp{
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 2rem;
+
+}
+
+form{
   background-color: blueviolet;
   border-radius: .8rem;
-  margin: 5rem 15rem;
+  margin: 2rem;
+  border-style: outset;
 }
 
 .logo{
