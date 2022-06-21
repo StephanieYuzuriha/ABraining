@@ -1,16 +1,17 @@
 <template>
   <div class="login">
-      <form class="login-form" @submit.prevent="onLogInButtonClicked" >
+      <form @submit.prevent="onLogInButtonClicked">
         <h1>Log-In</h1>
         <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
+        <p class="user">Username</p>
         <div class="data" >
-          <p class="user">Username</p>
+          
           <span><i class="fa fa-user"></i></span>
           <input v-model="user"  autocomplete="current-user" class="user-input" type="text" name="username" placeholder="Type your username" required>
         </div>
-
+        <p class="password">Password</p>
         <div class="data">
-          <p class="password">Password</p>
+          
           <span><i class="fa fa-lock"></i></span>
           <input v-model="password" autocomplete="current-password" class="password-input" type="password" name="pass" placeholder="Type your password" required>
         </div>
@@ -41,6 +42,8 @@ import { useStorage } from "@vueuse/core";
 import { login } from "@/services/auth.js";
 
 export default {
+  name: "logIn",
+
   data() {
     return {
       user: "",
@@ -48,7 +51,7 @@ export default {
       auth: useStorage("auth", {}),
     };
   },
-
+  
   methods: {
     async onLogInButtonClicked() {
       console.log("entro")
@@ -72,19 +75,34 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+
+@media screen and (max-width: 480px) {
+  div{
+    display: flex;
+  }
+}
+
+*{
+  font-weight: bold;
+}
+
 .login{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  
+  padding: 6rem;
+  background-image: linear-gradient(50deg, rgba(244, 157, 255, 0), #84b6f493);
 }
-.login-form{
+
+form{
   height: 20rem;
-  background-color: blueviolet;
+  background-image: linear-gradient(50deg, rgba(244, 157, 255, 0), rgb(146, 30, 255));
   border-radius: 2rem;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.219), 0 6px 20px 0 rgba(0, 0, 0, 0.212);
   padding: 3rem;
+  height: auto;;
 }
 
 .logo{
@@ -98,7 +116,7 @@ export default {
   background-color: violet;
 }
 .login-button:hover{
-  background-color: plum;
+  background-color: rgb(194, 160, 221);
 }
 
 input{
@@ -107,6 +125,9 @@ input{
   font-size: 14px;
   outline-color: blue;
   border-radius: .3rem;
+  border: none;
+  border-bottom: 2px solid white;
+  background: none;
 }
 input :focus{
   outline-color: blue;

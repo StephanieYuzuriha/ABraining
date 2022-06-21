@@ -1,6 +1,6 @@
 <template>
   <div class="signUp">
-      <form class="form" @submit.prevent="onSignUpButtonClicked">
+      <form @submit.prevent="onSignUpButtonClicked">
         <h1>Sign-Up</h1>
         <img class="logo" src="@/assets/img/logo.png" alt="Logo de la web">
         <div class="data">
@@ -97,21 +97,35 @@ export default {
 </script>
 
 <style scoped>
+@media screen and (max-width: 480px) {
+  .signUp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+
+  }
+}
+
+*{
+  font-weight: bold;
+}
 .signUp{
-  height: 100vh;
+  
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 2rem;
+  padding-bottom: 2rem;
 
 }
 
 form{
-  background-color: blueviolet;
-  border-radius: .8rem;
-  margin: 2rem;
-  border-style: outset;
+  background-image: linear-gradient(50deg, rgba(244, 157, 255, 0), rgb(146, 30, 255));
+  border-radius: 2rem;
+  margin-top: 8rem;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.219), 0 6px 20px 0 rgba(0, 0, 0, 0.212);
 }
 
 .logo{
@@ -125,10 +139,12 @@ form{
 }
 
 input{
-  border: none;
   height: 1.4rem;
   font-size: 14px;
   outline-color: blue;
+  border: none;
+  border-bottom: 2px solid white;
+  background: none;
   border-radius: .3rem;
 }
 
@@ -141,8 +157,8 @@ span{
 }
 
 p{
-  font-weight: bold;
   margin: 1rem 2rem;
+  width: 17rem;
 }
 
 .sing-up{
