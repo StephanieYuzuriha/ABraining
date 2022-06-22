@@ -9,6 +9,10 @@ npm install
 ```
 npm run serve
 ```
+## LogIn
+```
+Para logearte debes usar el usuario: user1 y la password: 1234
+```
 
 ### Generar archivos de distribución
 ```
