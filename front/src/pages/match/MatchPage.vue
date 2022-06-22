@@ -13,10 +13,13 @@
         </div>
       </transition>
     </section>
+    <section>
+      <p class="isWrong" v-if="wrong">Wrong Match!</p>
+    </section>
     
-    <button v-if="totQuestionsAnswered == this.randomQuestions.length" @click="resultsButton()">See my results</button>
+    <button class="check-button"  v-if="totQuestionsAnswered == this.randomQuestions.length" @click="resultsButton()">See my results</button>
     <button class="check-button" v-else @click.prevent="checkMatch">Check Match</button>
-    <p v-if="wrong">Wrong Match!</p>
+    
 
   </div>
 </template>
@@ -113,18 +116,31 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  *{
+    font-weight: bold;
+  }
+  p{
+    font-size: 16px;
+    color: black;
+  }
+  h4{
+    padding-bottom: 2rem;
+  }
   #container {
-    height: 100%;
-    margin-top: 5rem;
+    height: 80%;
   }
 
   .check-button {
     padding: 1rem 2rem;
-    margin: 5rem 0;
     border: none;
     border-radius: 10px;
     background-color: var(--secund);
+    font-size: 16px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .check-button:hover{
+    background-color: plum;
   }
 
   .description-container {
@@ -133,6 +149,7 @@ export default {
     align-items: center;
     justify-content: center;
     border: 4px solid rgb(121, 0, 235);
+    border-radius: 5px;
   }
 
   #title {
@@ -145,12 +162,24 @@ export default {
     width: 12rem;
     height: 12rem;
     border: 4px solid rgb(121, 0, 235);
+    border-radius: 5px;
   }
 
   section {
     display: flex;
     justify-content: space-around;
     margin: 10px 15rem 10px 15rem;
+  }
+
+  .isWrong{
+    margin: 1rem 1rem;
+    font-size: 16px;
+    border: 2px solid rgb(255, 0, 0);
+    text-align: center;
+    width: 100vh;
+    background-color: yellow;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .selected {
@@ -171,7 +200,34 @@ export default {
     opacity: 0;
     transition:  2s ease;   
   }
+  @media screen and (max-width: 800px) {
+    img {
+      width: 10rem;
+      height: 10rem;
+      border: 2px solid rgb(121, 0, 235);
+    }
 
+    .description-container {
+    width: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(121, 0, 235);
+    }
+
+    section {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 2rem 10px 2rem;
+    }
+
+    #title {
+    font-family: 'Skranji', cursive;
+    font-size: 40px;
+    padding-top: 5rem;
+    }
+
+  }
   
   @media screen and (max-width: 480px) {
     img {
@@ -198,6 +254,24 @@ export default {
     font-family: 'Skranji', cursive;
     font-size: 40px;
     padding-top: 5rem;
+  }
+  .selected {
+    border: 4px yellow solid;
+  }
+  .unselected {
+    border: none;
+  }
+  .correct {
+    border: green 4px solid;
+  }
+
+  .uncorrect {
+    border: red 4px solid;
+  }
+
+  .fade-leave-active {
+    opacity: 0;
+    transition:  2s ease;   
   }
 }
 

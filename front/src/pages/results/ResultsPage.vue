@@ -1,9 +1,9 @@
 <template>
-  <div class="results">
+  <div class="resultsPage">
     <h1>Results</h1>
-    <section v-if="!userIsNotLogged">
-      <table >
-        <tr>
+    <section v-if="!userIsNotLogged" class="results">
+      <table>
+        <tr id="heders">
           <th>Game number</th>
           <th>Mistakes</th>
           <th>Date</th>
@@ -15,16 +15,18 @@
         </tr>
       </table>
     </section>
-    <section v-else>
-      You have to
-      <a href="/signUp" class="signUp">
-        Sign Up
-      </a>
-      <p>or</p>
-      <a href="/lonIn" class="logIn">
-        Log In
-      </a>
-      to see your results.
+    <section v-else class="noLogged">
+      <div class="noLoggedContent">
+        <p>You have to</p>
+        <a href="/signUp" class="signUp">
+        <p>Sign Up</p>
+        </a>
+        <p>or</p>
+        <a href="/lonIn" class="logIn">
+        <p>Log In</p>
+        </a>
+        <p>to see your results.</p>
+      </div>
     </section>
   </div>
 </template>
@@ -58,7 +60,65 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  font-style: italic;
+
+h1{
+  font-weight: bold;
 }
+
+table{
+  background-color: #177fff44;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.219), 0 6px 20px 0 rgba(0, 0, 0, 0.212);
+  width: 70%;
+  height: 40vh;
+  font-size: 16px;
+  
+}
+
+th{
+  font-weight: bold;
+}
+#heders{
+  border: 1px solid rgb(0, 0, 0);
+  color:rgb(108, 30, 182);
+}
+table  th {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.267);
+  border-collapse: collapse;
+}
+
+.resultsPage{
+  padding-top: 10rem;
+  height: 100vh;
+}
+.results{
+  display: flex;
+  justify-content: center;
+  
+}
+.noLogged{
+  display: flex;
+  justify-content: center;
+  padding: 5rem;
+  height: 100vh;
+  font-size: 20px;  
+}
+
+.noLoggedContent p{
+  color:black;
+}
+.noLoggedContent{
+  border: 2px solid yellow;
+  
+  border-radius: .5rem;
+  height: 10rem;
+  padding: 1rem;
+  background-color: rgba(255, 255, 0, 0.315);
+}
+
+@media screen and (max-width: 480px){
+  .resultsPage{
+    padding-top: 15rem;
+  }
+}
+
 </style>
