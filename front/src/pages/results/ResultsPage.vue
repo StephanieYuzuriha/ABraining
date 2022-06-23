@@ -4,7 +4,7 @@
     <section v-if="!userIsNotLogged" class="results">
       <table>
         <tr id="heders">
-          <th>Game number</th>
+          <th>Game Name</th>
           <th>Mistakes</th>
           <th>Date</th>
         </tr>
