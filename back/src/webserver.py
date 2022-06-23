@@ -73,7 +73,7 @@ def create_app(repositories):
             password = body["password"],
             
             )
-        
+        print(user.name)
         verifyUser = repositories["users"].get_by_id(user.id)
         
         if verifyUser == None:

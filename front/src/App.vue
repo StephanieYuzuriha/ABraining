@@ -8,7 +8,7 @@
       <router-link to="/match">  Match</router-link>
     </div>
     <div class="log">
-      <!-- <router-link class="singUp" to="/signUp"> Sign Up </router-link> -->
+      <router-link class="singUp" to="/signUp"> Sign Up </router-link>
       <router-link  to="/logIn"> Log In </router-link>
     </div>
     <button @click="onClickedLogOut"><i class="fa fa-sign-out"></i> LogOut </button>
