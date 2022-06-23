@@ -110,7 +110,7 @@ table  th {
   border: 2px solid yellow;
   
   border-radius: .5rem;
-  height: 10rem;
+  height: 20rem;
   padding: 1rem;
   background-color: rgba(255, 255, 0, 0.315);
 }
