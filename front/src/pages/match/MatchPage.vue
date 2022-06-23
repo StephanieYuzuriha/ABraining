@@ -230,6 +230,11 @@ export default {
   }
   
   @media screen and (max-width: 480px) {
+    #container{
+      padding-top: 20px;
+      padding-bottom: 10px;
+    }
+
     img {
       width: 8rem;
       height: 8rem;
