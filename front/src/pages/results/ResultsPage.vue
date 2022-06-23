@@ -22,7 +22,7 @@
         <p>Sign Up</p>
         </a>
         <p>or</p>
-        <a href="/lonIn" class="logIn">
+        <a href="/logIn" class="logIn">
         <p>Log In</p>
         </a>
         <p>to see your results.</p>

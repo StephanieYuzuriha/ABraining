@@ -88,6 +88,7 @@ export default {
 }
 
 .login{
+  margin-top:2rem;
   display: flex;
   justify-content: center;
   align-items: center;

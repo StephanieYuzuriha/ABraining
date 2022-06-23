@@ -1,10 +1,10 @@
 <template>
   <div id="container">
     <h1 id="title">Match Game</h1>
-    <h4>Connect the image with the correct color</h4>
+    <h4>Select the image with the correct color, then press the botton to check your answer.</h4>
     <section v-for="item of this.randomQuestions" :key="item">
       <transition name="fade">
-        <img :id="item.id" v-show="item.show"  :class="{selected: item.id === id_img, correct: !item.show }" @click="onClickImg(item.id)" :src="item.img_id" alt="img">
+        <img class="questions" :id="item.id" v-show="item.show"  :class="{selected: item.id === id_img, correct: !item.show }" @click="onClickImg(item.id)" :src="item.img_id" alt="img">
       </transition>
       {{item.id_img}}
       <transition name="fade">
@@ -127,12 +127,10 @@ export default {
   h4{
     padding-bottom: 2rem;
   }
-  #container {
-    height: 80%;
-  }
-
+ 
   .check-button {
     padding: 1rem 2rem;
+    margin-bottom: 5rem;;
     border: none;
     border-radius: 10px;
     background-color: var(--secund);
@@ -163,6 +161,9 @@ export default {
     height: 12rem;
     border: 4px solid rgb(121, 0, 235);
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   section {
